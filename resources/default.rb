@@ -5,18 +5,15 @@ default_action :install
 
 action :source do
   directory new_resource.src_dir do
-    mode 0775
+    mode 0o775
     action :create
   end
 
-  %w(
-    cronic
-    Makefile
-  ).each do |file_name|
+  %w[cronic Makefile].each do |file_name|
     cookbook_file ::File.join(new_resource.src_dir, file_name) do
       cookbook 'cronic'
       source file_name
-      mode 0644
+      mode 0o644
       action :create
     end
   end
